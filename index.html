@@ -249,20 +249,14 @@
         // Отправка данных в Google Таблицу через Apps Script
         fetch('https://script.google.com/macros/s/AKfycbyH7NX00oDOC2mu6213Mh11zsvKFrtr1qwItbzH5C1eV-zHQyZ2pyILArvUr3VTW98-/exec', {
             method: 'POST',
+            mode: 'no-cors', // <-- ВАЖНО: обходим CORS-ошибку
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(result => {
-            if (result.result === 'success') {
-                // Показываем сообщение об успехе
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-            } else {
-                alert('Ошибка при отправке. Попробуйте еще раз.');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Отправить анкету';
-            }
+        .then(() => {
+            // При mode: 'no-cors' мы не видим ответ, но данные уходят
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
         })
         .catch(error => {
             console.error('Ошибка:', error);
