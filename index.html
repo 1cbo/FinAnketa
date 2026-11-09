@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Анкета настройки управленческого учёта (1CPNL)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 40px 16px; background: #F2EEEA;
+      font-family: 'IBM Plex Sans', Arial, sans-serif; color: #201A1B;
+    }
+    .wrap { max-width: 800px; margin: 0 auto; }
+    .card {
+      background: #FFFFFF; border-top: 6px solid #C41E3A;
+      padding: 40px 40px 30px; border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .brand { font-family: 'Roboto Slab', Georgia, serif; font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #C41E3A; margin: 0 0 20px; }
+    .brand span { color: #201A1B; }
+    h1 { font-family: 'Roboto Slab', Georgia, serif; font-weight: 700; font-size: 24px; line-height: 1.3; margin: 0 0 12px; }
+    .subtitle { font-size: 15px; color: #555; line-height: 1.5; margin: 0 0 28px; }
+    
+    .section { margin-bottom: 30px; border-bottom: 1px solid #EFE6E7; padding-bottom: 20px; }
+    .section-title { font-family: 'Roboto Slab', Georgia, serif; font-weight: 700; font-size: 18px; color: #8F1229; margin-bottom: 8px; }
+    .section-desc { font-size: 14px; color: #555; margin-bottom: 15px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 15px; font-weight: 600; color: #201A1B; margin-bottom: 6px; }
+    .form-desc { display: block; font-size: 13px; color: #777; line-height: 1.4; margin-bottom: 8px; }
+    .form-input {
+      width: 100%; padding: 12px 14px; font-size: 15px; font-family: 'IBM Plex Sans', Arial, sans-serif;
+      color: #201A1B; background: #F8F9FA; border: 1px solid #E0E0E0; border-radius: 4px; outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: #C41E3A; }
+    .form-row { display: flex; gap: 20px; }
+    .form-row .form-group { flex: 1; }
+
+    /* Чекбоксы */
+    .check-group { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .check-label { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; cursor: pointer; line-height: 1.4; }
+    .check-label input { margin-top: 3px; width: 18px; height: 18px; accent-color: #C41E3A; cursor: pointer; }
+
+    /* Кнопка */
+    .btn {
+      display: block; width: 100%; padding: 16px 24px; background: #C41E3A; color: #FFFFFF;
+      font-family: 'Roboto Slab', Georgia, serif; font-weight: 700; font-size: 16px;
+      text-align: center; text-decoration: none; border: none; border-radius: 4px; cursor: pointer;
+      transition: background 0.2s; margin-top: 20px;
+    }
+    .btn:hover { background: #A0182F; }
+    .btn:disabled { background: #CCC; cursor: not-allowed; }
+    
+    .footer-contacts { margin-top: 30px; text-align: center; font-size: 13px; color: #8A7B7D; }
+    
+    .success-message { display: none; background: #FCEEEF; border-left: 4px solid #C41E3A; padding: 20px; margin-top: 20px; text-align: center; border-radius: 4px; }
+    .success-message h3 { color: #8F1229; margin-top: 0; font-family: 'Roboto Slab', Georgia, serif; }
+    
+    @media (max-width: 600px) {
+      .form-row { flex-direction: column; gap: 0; }
+      .card { padding: 20px 15px; }
+    }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    
+    <p class="brand">obuh<span>.</span>pro</p>
+    <h1>Анкета настройки управленческого учёта</h1>
+    <p class="subtitle">Заполните эту анкету, чтобы мы могли подготовить настройку системы под ваш бизнес. Если не знаете ответа — пропустите, мы разберемся вместе.</p>
+
+    <form id="workbookForm">
+      <!-- БЛОК 1: Знакомство -->
+      <div class="section">
+        <div class="section-title">1. Знакомство с бизнесом</div>
+        
+        <div class="form-group">
+          <label class="form-label" for="companyName">Название компании</label>
+          <span class="form-desc">Напишите название вашей компании или ИП. Это поможет нам подготовить индивидуальное предложение.</span>
+          <input type="text" id="companyName" class="form-input" placeholder="ООО «Ромашка»">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="config1C">Конфигурация 1С</label>
+          <span class="form-desc">Укажите, в какой программе 1С вы сейчас работаете. Это нужно, чтобы проверить совместимость модуля с вашей базой.</span>
+          <input type="text" id="config1C" class="form-input" placeholder="1С:Бухгалтерия 8.3, 1С:УНФ, 1С:ERP">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="currentAccounting">Где сейчас ведется управленческий учет?</label>
+          <span class="form-desc">Опишите, как вы сейчас считаете деньги и прибыль. Например, в Excel, в Google-таблицах, в отдельной программе или «в голове».</span>
+          <input type="text" id="currentAccounting" class="form-input" placeholder="Собираем в Excel, сводим вручную раз в месяц">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="mainGoal">Что хотите видеть в итоге?</label>
+          <span class="form-desc">Напишите, какие отчеты или цифры вам нужны для управления. Это может быть прибыль по направлениям, остаток денег на счетах, прогноз кассовых разрывов или план на месяц.</span>
+          <input type="text" id="mainGoal" class="form-input" placeholder="Хочу видеть прибыль по каждому направлению и остаток денег на завтра">
+        </div>
+      </div>
+
+      <!-- БЛОК 2: ДДС -->
+      <div class="section">
+        <div class="section-title">2. Деньги (ДДС)</div>
+        <div class="section-desc">Как вы видите движение денег.</div>
+        
+        <div class="form-group">
+          <label class="form-label" for="ddsIncome">Основные статьи поступлений</label>
+          <span class="form-desc">Перечислите основные источники, откуда к вам приходят деньги. Это поможет нам создать правильные статьи для отчета о движении денег.</span>
+          <input type="text" id="ddsIncome" class="form-input" placeholder="Оплата от клиентов, авансы, возвраты от поставщиков">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ddsExpense">Основные статьи платежей</label>
+          <span class="form-desc">Перечислите основные направления, куда уходят ваши деньги. Это поможет понять, на что вы тратите больше всего.</span>
+          <input type="text" id="ddsExpense" class="form-input" placeholder="Зарплата, налоги, аренда, закупка товара, логистика">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Какие задачи нужно настроить? <span style="font-weight: normal; color: #777;">(Можно выбрать несколько)</span></label>
+          <span class="form-desc">Отметьте галочками те задачи, которые вам сейчас важнее всего решить. Если сомневаетесь — оставьте пустым, мы обсудим на встрече.</span>
+          <div class="check-group">
+            <label class="check-label"><input type="checkbox" name="ddsTasks" value="Статьи ДДС"> Создать статьи ДДС</label>
+            <label class="check-label"><input type="checkbox" name="ddsTasks" value="Платежный календарь"> Настроить платёжный календарь</label>
+            <label class="check-label"><input type="checkbox" name="ddsTasks" value="Кошельки"> Настроить кошельки (счета/кассы)</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- БЛОК 3: ОПиУ -->
+      <div class="section">
+        <div class="section-title">3. Прибыль (ОПиУ)</div>
+        <div class="section-desc">Какие направления и статьи доходов/расходов важны.</div>
+        
+        <div class="form-group">
+          <label class="form-label" for="opiuDirections">Направления / проекты для раздельного учёта</label>
+          <span class="form-desc">Перечислите, какие направления, проекты или филиалы вы хотите видеть отдельно друг от друга. Например, если у вас три магазина — напишите их названия.</span>
+          <input type="text" id="opiuDirections" class="form-input" placeholder="Направление А, Направление Б, Интернет-магазин">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="opiuDirect">Прямые расходы</label>
+            <span class="form-desc">Расходы, которые напрямую связаны с конкретным направлением. Если закрыть направление, эти расходы исчезнут.</span>
+            <input type="text" id="opiuDirect" class="form-input" placeholder="Закупка, логистика, сдельная оплата">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="opiuIndirect">Косвенные расходы</label>
+            <span class="form-desc">Расходы для всего бизнеса, их нельзя привязать к одному направлению. Их нужно распределять.</span>
+            <input type="text" id="opiuIndirect" class="form-input" placeholder="Аренда офиса, зарплата админов, интернет">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Какие задачи нужно настроить? <span style="font-weight: normal; color: #777;">(Можно выбрать несколько)</span></label>
+          <span class="form-desc">Отметьте галочками задачи, которые нужно сделать в первую очередь.</span>
+          <div class="check-group">
+            <label class="check-label"><input type="checkbox" name="opiuTasks" value="Статьи ОПиУ"> Создать статьи ОПиУ</label>
+            <label class="check-label"><input type="checkbox" name="opiuTasks" value="Распределение"> Настроить распределение косвенных расходов</label>
+            <label class="check-label"><input type="checkbox" name="opiuTasks" value="Зарплата"> Настроить учет зарплаты</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- БЛОК 4: Планы и Фонды -->
+      <div class="section">
+        <div class="section-title">4. Планы и фонды</div>
+        <div class="section-desc">Как вы планируете будущее.</div>
+        
+        <div class="form-group">
+          <label class="form-label" for="planning">Планируете ли вы бюджет?</label>
+          <span class="form-desc">Напишите, как вы планируете расходы на будущий месяц или квартал. Например, в Excel, в блокноте, или вообще не планируете.</span>
+          <input type="text" id="planning" class="form-input" placeholder="Да, планируем бюджет на месяц в Excel">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="funds">Есть ли фонды (резервный, развития)?</label>
+          <span class="form-desc">Если вы откладываете часть денег на определенные цели (например, на развитие, на резерв на случай форс-мажора), напишите об этом.</span>
+          <input type="text" id="funds" class="form-input" placeholder="Да, откладываем 10% от прибыли в резервный фонд">
+        </div>
+      </div>
+
+      <!-- Контактные данные -->
+      <div class="section" style="border-bottom: none;">
+        <div class="section-title">Контактные данные</div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="contactName">Ваше имя</label>
+            <span class="form-desc">Напишите ваше имя, чтобы мы знали, как к вам обращаться.</span>
+            <input type="text" id="contactName" class="form-input" placeholder="Иван" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contactPhone">Телефон / Email</label>
+            <span class="form-desc">Оставьте удобный способ связи. Мы напишем или позвоним, чтобы обсудить анкету и подготовить предложение.</span>
+            <input type="text" id="contactPhone" class="form-input" placeholder="+7 (999) 123-45-67" required>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Отправить анкету</button>
+    </form>
+
+    <!-- Сообщение об успехе -->
+    <div class="success-message" id="successMessage">
+      <h3>Спасибо! Анкета отправлена.</h3>
+      <p>Мы свяжемся с вами в ближайшее время, чтобы обсудить детали настройки.</p>
+    </div>
+
+    <div class="footer-contacts">
+      obuh.pro · 20 лет · 257 клиентов · +7 (495) 150-33-99
+    </div>
+  </div>
+</div>
+
+<script>
+    const form = document.getElementById('workbookForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+
+        const formData = new FormData(form);
+        const data = {
+            companyName: formData.get('companyName'),
+            config1C: formData.get('config1C'),
+            currentAccounting: formData.get('currentAccounting'),
+            mainGoal: formData.get('mainGoal'),
+            ddsIncome: formData.get('ddsIncome'),
+            ddsExpense: formData.get('ddsExpense'),
+            ddsTasks: formData.getAll('ddsTasks'),
+            opiuDirections: formData.get('opiuDirections'),
+            opiuDirect: formData.get('opiuDirect'),
+            opiuIndirect: formData.get('opiuIndirect'),
+            opiuTasks: formData.getAll('opiuTasks'),
+            planning: formData.get('planning'),
+            funds: formData.get('funds'),
+            contactName: formData.get('contactName'),
+            contactPhone: formData.get('contactPhone')
+        };
+
+        // Отправка данных в Google Таблицу через Apps Script
+        fetch('https://script.google.com/macros/s/AKfycbyH7NX00oDOC2mu6213Mh11zsvKFrtr1qwItbzH5C1eV-zHQyZ2pyILArvUr3VTW98-/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.result === 'success') {
+                // Показываем сообщение об успехе
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+            } else {
+                alert('Ошибка при отправке. Попробуйте еще раз.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить анкету';
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка сети. Попробуйте еще раз.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить анкету';
+        });
+    });
+</script>
+</body>
+</html>
