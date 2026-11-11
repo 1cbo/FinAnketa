@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Анкета для подготовки к встрече — obuh.pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 40px 16px; background: #F8F9FA;
+      font-family: 'IBM Plex Sans', Arial, sans-serif; color: #201A1B;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 800px; margin: 0 auto; }
+    .card {
+      background: #FFFFFF; border-top: 8px solid #C41E3A;
+      padding: 48px 56px 40px; border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    
+    .brand {
+      font-family: 'Roboto Slab', Georgia, serif; font-weight: 700;
+      font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #C41E3A; margin: 0 0 30px;
+    }
+    .brand span { color: #201A1B; }
+    
+    h1 {
+      font-family: 'Roboto Slab', Georgia, serif; font-weight: 700;
+      font-size: 28px; line-height: 1.3; margin: 0 0 16px; color: #201A1B;
+    }
+    .subtitle {
+      font-size: 17px; line-height: 1.6; color: #555; margin: 0 0 32px;
+    }
+    .subtitle strong { color: #201A1B; }
+
+    .section {
+      margin-bottom: 40px; border-bottom: 1px solid #EFE6E7; padding-bottom: 30px;
+    }
+    .section:last-of-type { border-bottom: none; }
+    
+    .section-title {
+      font-family: 'Roboto Slab', Georgia, serif; font-weight: 700;
+      font-size: 20px; color: #201A1B; margin-bottom: 8px; line-height: 1.4;
+    }
+    .section-desc {
+      font-size: 14px; color: #777; margin-bottom: 20px; line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 16px; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 14px 16px; font-size: 16px; font-family: 'IBM Plex Sans', Arial, sans-serif;
+      color: #201A1B; background: #FFFFFF; border: 2px solid #E0E0E0;
+      border-radius: 8px; outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #C41E3A; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    /* Опции (чекбоксы / радио) */
+    .option {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px; margin-bottom: 8px; border: 2px solid #EFE6E7;
+      border-radius: 8px; cursor: pointer; transition: all 0.2s;
+      background: #FFFFFF; font-size: 15px; line-height: 1.4;
+    }
+    .option:hover { border-color: #C41E3A; background: #FCEEEF; }
+    .option input { margin-top: 3px; width: 18px; height: 18px; accent-color: #C41E3A; cursor: pointer; flex-shrink: 0; }
+    .option input:checked + .option-text { font-weight: 600; }
+
+    /* Матрица */
+    .matrix-table {
+      width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px;
+    }
+    .matrix-table th {
+      background: #F8F9FA; padding: 12px; text-align: left;
+      font-weight: 600; font-size: 13px; color: #555; border-bottom: 2px solid #EFE6E7;
+    }
+    .matrix-table td {
+      padding: 16px 12px; border-bottom: 1px solid #EFE6E7; vertical-align: top;
+    }
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-label { font-weight: 600; color: #201A1B; margin-bottom: 4px; }
+    .matrix-sublabel { font-size: 12px; color: #777; line-height: 1.4; }
+    .matrix-radio { text-align: center; }
+    .matrix-radio input { width: 20px; height: 20px; accent-color: #C41E3A; cursor: pointer; }
+
+    /* Чекбоксы согласий */
+    .checkbox-group {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 12px; cursor: pointer; font-size: 14px; line-height: 1.4; color: #555;
+    }
+    .checkbox-group input {
+      margin-top: 2px; width: 18px; height: 18px; accent-color: #C41E3A; cursor: pointer; flex-shrink: 0;
+    }
+    .checkbox-group a { color: #C41E3A; text-decoration: underline; }
+
+    .btn {
+      display: block; width: 100%; padding: 18px 24px; background: #C41E3A;
+      color: #FFFFFF; font-family: 'Roboto Slab', Georgia, serif; font-weight: 700;
+      font-size: 17px; text-align: center; text-decoration: none; border: none;
+      border-radius: 6px; cursor: pointer; transition: background 0.2s;
+      margin-top: 24px; box-shadow: 0 4px 15px rgba(196, 30, 58, 0.2);
+    }
+    .btn:hover { background: #A0182F; }
+    .btn:disabled { background: #CCC; cursor: not-allowed; box-shadow: none; }
+
+    /* Спасибо */
+    .success-page { display: none; text-align: center; padding: 20px; }
+    .success-page.active { display: block; }
+    .success-icon {
+      width: 80px; height: 80px; background: #FCEEEF; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 24px; color: #C41E3A;
+    }
+    .success-page h2 {
+      font-family: 'Roboto Slab', Georgia, serif; font-size: 28px;
+      color: #201A1B; margin-bottom: 16px;
+    }
+    .success-page p { font-size: 17px; color: #555; line-height: 1.6; margin-bottom: 24px; }
+    .calendar-placeholder {
+      background: #F8F9FA; border: 2px dashed #C41E3A; border-radius: 8px;
+      padding: 40px 20px; margin: 32px 0; color: #777; font-size: 15px;
+    }
+
+    .footer-contacts {
+      margin-top: 30px; padding-top: 16px; border-top: 1px solid #EFE6E7;
+      font-size: 13px; color: #8A7B7D; text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .card { padding: 30px 20px; }
+      h1 { font-size: 24px; }
+      .section-title { font-size: 18px; }
+      .matrix-table { font-size: 13px; }
+      .matrix-table th, .matrix-table td { padding: 10px 8px; }
+    }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="formContainer">
+    
+    <p class="brand">obuh<span>.</span>pro</p>
+    <h1>Анкета для подготовки к встрече с финансовым директором</h1>
+    <p class="subtitle">
+      <strong>Какие финансовые вопросы вы хотите прояснить в своём бизнесе?</strong><br>
+      Клиент просит скидку. Вы знаете сумму заказа. А сможете ли вы быстро посчитать, сколько на нём реально заработаете, если согласитесь?<br><br>
+      На первой встрече (25 минут) мы разберем ключевой финансовый вопрос вашей компании. Ваши ответы помогут финансовому директору подготовить разбор заранее, а не тратить время на общие вопросы.<br>
+      Заполнение займет около 5–7 минут. Точные суммы, бухгалтерские выписки и балансы не нужны.
+    </p>
+
+    <form id="anketaForm" onsubmit="submitAnketa(event)">
+      
+      <!-- 1. Главный вопрос -->
+      <div class="section">
+        <div class="section-title">1. Какой вопрос вы бы первым задали финансовому директору?</div>
+        <div class="section-desc">Выберите 1 или 2 наиболее важных варианта</div>
+        <label class="option"><input type="checkbox" name="q1" value="Продаж стало больше, а чистой прибыли на счете почти не прибавилось. Где осели деньги?"><span class="option-text">Продаж стало больше, а чистой прибыли на счете почти не прибавилось. Где осели деньги?</span></label>
+        <label class="option"><input type="checkbox" name="q1" value="Клиент просит скидку. Сколько мы заработаем, если согласимся, и не уйдем ли в минус?"><span class="option-text">Клиент просит скидку. Сколько мы заработаем, если согласимся, и не уйдем ли в минус?</span></label>
+        <label class="option"><input type="checkbox" name="q1" value="Какие направления, товары или проекты приносят реальную прибыль, а какие тянут на дно?"><span class="option-text">Какие направления, товары или проекты приносят реальную прибыль, а какие тянут на дно?</span></label>
+        <label class="option"><input type="checkbox" name="q1" value="Хватит ли денег на зарплату, налоги и поставщиков, если клиенты задержат оплату?"><span class="option-text">Хватит ли денег на зарплату, налоги и поставщиков, если клиенты задержат оплату?</span></label>
+        <label class="option"><input type="checkbox" name="q1" value="На счете есть остаток. Сколько можно безопасно вывести себе, не оголяя оборотку?"><span class="option-text">На счете есть остаток. Сколько можно безопасно вывести себе, не оголяя оборотку?</span></label>
+        <label class="option"><input type="checkbox" name="q1" value="Почему финансовые отчеты собираются так долго или цифры в них постоянно расходятся?"><span class="option-text">Почему финансовые отчеты собираются так долго или цифры в них постоянно расходятся?</span></label>
+        <input type="text" name="q1_other" class="form-input" placeholder="Другой вопрос (своими словами)" style="margin-top: 8px;">
+      </div>
+
+      <!-- 2. О бизнесе -->
+      <div class="section">
+        <div class="section-title">2. Коротко о структуре вашего бизнеса</div>
+        
+        <div class="form-group">
+          <div class="section-desc">2.1. В какой отрасли вы работаете? (можно выбрать несколько)</div>
+          <label class="option"><input type="checkbox" name="industry" value="Оптовая торговля / Дистрибуция"><span class="option-text">Оптовая торговля / Дистрибуция</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Розничная торговля / E-commerce / Маркетплейсы"><span class="option-text">Розничная торговля / E-commerce / Маркетплейсы</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Производство"><span class="option-text">Производство</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Услуги для бизнеса (B2B) / IT / Консалтинг"><span class="option-text">Услуги для бизнеса (B2B) / IT / Консалтинг</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Услуги для населения (B2C)"><span class="option-text">Услуги для населения (B2C)</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Строительство, монтаж, девелопмент"><span class="option-text">Строительство, монтаж, девелопмент</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Транспорт, склад, логистика"><span class="option-text">Транспорт, склад, логистика</span></label>
+          <label class="option"><input type="checkbox" name="industry" value="Общепит / Гостеприимство"><span class="option-text">Общепит / Гостеприимство</span></label>
+          <input type="text" name="industry_other" class="form-input" placeholder="Другое" style="margin-top: 8px;">
+        </div>
+
+        <div class="form-group">
+          <div class="section-desc">2.2. Какие товары, услуги или проекты приносят основную выручку? (до 3 позиций)</div>
+          <textarea name="main_products" class="form-textarea" placeholder="Например: монтаж вентиляции на промобъектах, продажа оборудования"></textarea>
+        </div>
+
+        <div class="form-group">
+          <div class="section-desc">2.3. На что у бизнеса уходит больше всего денег? (до 3 вариантов)</div>
+          <label class="option"><input type="checkbox" name="expenses" value="Закупка сырья, материалов или товаров для перепродажи"><span class="option-text">Закупка сырья, материалов или товаров для перепродажи</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Фонд оплаты труда (зарплаты, бонусы, налоги с ФОТ)"><span class="option-text">Фонд оплаты труда (зарплаты, бонусы, налоги с ФОТ)</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Подрядчики и субподрядчики"><span class="option-text">Подрядчики и субподрядчики</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Аренда помещений, складов, офисов"><span class="option-text">Аренда помещений, складов, офисов</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Маркетинг, реклама, привлечение клиентов"><span class="option-text">Маркетинг, реклама, привлечение клиентов</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Логистика и доставка"><span class="option-text">Логистика и доставка</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Кредиты, лизинги, проценты"><span class="option-text">Кредиты, лизинги, проценты</span></label>
+          <label class="option"><input type="checkbox" name="expenses" value="Затрудняюсь ответить / Расходы размазаны"><span class="option-text">Затрудняюсь ответить / Расходы размазаны</span></label>
+          <input type="text" name="expenses_other" class="form-input" placeholder="Другое" style="margin-top: 8px;">
+        </div>
+
+        <div class="form-group">
+          <div class="section-desc">2.4. По какой схеме клиенты обычно оплачивают ваши счета? (можно несколько)</div>
+          <label class="option"><input type="checkbox" name="payment_scheme" value="100% предоплата до начала работ или отгрузки"><span class="option-text">100% предоплата до начала работ или отгрузки</span></label>
+          <label class="option"><input type="checkbox" name="payment_scheme" value="Частичная предоплата + доплата по факту готовности"><span class="option-text">Частичная предоплата + доплата по факту готовности</span></label>
+          <label class="option"><input type="checkbox" name="payment_scheme" value="Оплата частями по мере закрытия этапов"><span class="option-text">Оплата частями по мере закрытия этапов</span></label>
+          <label class="option"><input type="checkbox" name="payment_scheme" value="Постоплата (отсрочка платежа после отгрузки/акта)"><span class="option-text">Постоплата (отсрочка платежа после отгрузки/акта)</span></label>
+          <label class="option"><input type="checkbox" name="payment_scheme" value="Смешанные условия / под каждого клиента индивидуально"><span class="option-text">Смешанные условия / под каждого клиента индивидуально</span></label>
+        </div>
+
+        <div class="form-group">
+          <div class="section-desc">2.5. Сколько сотрудников работает в компании (включая удаленных)?</div>
+          <label class="option"><input type="radio" name="employees" value="Работаю самостоятельно"><span class="option-text">Работаю самостоятельно</span></label>
+          <label class="option"><input type="radio" name="employees" value="1–5 человек"><span class="option-text">1–5 человек</span></label>
+          <label class="option"><input type="radio" name="employees" value="6–15 человек"><span class="option-text">6–15 человек</span></label>
+          <label class="option"><input type="radio" name="employees" value="16–50 человек"><span class="option-text">16–50 человек</span></label>
+          <label class="option"><input type="radio" name="employees" value="51–100 человек"><span class="option-text">51–100 человек</span></label>
+          <label class="option"><input type="radio" name="employees" value="Более 100 человек"><span class="option-text">Более 100 человек</span></label>
+        </div>
+
+        <div class="form-group">
+          <div class="section-desc">2.6. Какую систему налогообложения вы применяете?</div>
+          <label class="option"><input type="radio" name="tax_system" value="УСН «Доходы» (6%)"><span class="option-text">УСН «Доходы» (6%)</span></label>
+          <label class="option"><input type="radio" name="tax_system" value="УСН «Доходы минус расходы» (15%)"><span class="option-text">УСН «Доходы минус расходы» (15%)</span></label>
+          <label class="option"><input type="radio" name="tax_system" value="Общая система налогообложения (ОСНО с НДС)"><span class="option-text">Общая система налогообложения (ОСНО с НДС)</span></label>
+          <label class="option"><input type="radio" name="tax_system" value="Патент (ПСН)"><span class="option-text">Патент (ПСН)</span></label>
+          <label class="option"><input type="radio" name="tax_system" value="Несколько юрлиц / совмещение режимов"><span class="option-text">Несколько юрлиц / совмещение режимов</span></label>
+          <label class="option"><input type="radio" name="tax_system" value="Затрудняюсь ответить / Уточню у бухгалтера"><span class="option-text">Затрудняюсь ответить / Уточню у бухгалтера</span></label>
+        </div>
+      </div>
+
+      <!-- 3. Матрица данных -->
+      <div class="section">
+        <div class="section-title">3. Если бы завтра вам срочно понадобились эти данные, что бы вы увидели?</div>
+        <div class="section-desc">Пожалуйста, отвечайте честно. Вариант «Пока не вижу» — это нормальный управленческий факт, который сразу показывает точку роста.</div>
+        
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Показатель и инструмент</th>
+              <th style="text-align:center;">Вижу в готовом отчете</th>
+              <th style="text-align:center;">Могу собрать вручную за пару часов</th>
+              <th style="text-align:center;">Пока не вижу / Нет таких данных</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="matrix-label">Куда ушли деньги за месяц?</div>
+                <div class="matrix-sublabel">Поступления, списания по статьям, личные изъятия. (ДДС)</div>
+              </td>
+              <td class="matrix-radio"><input type="radio" name="m_dds" value="Вижу в готовом отчете" required></td>
+              <td class="matrix-radio"><input type="radio" name="m_dds" value="Могу собрать вручную"></td>
+              <td class="matrix-radio"><input type="radio" name="m_dds" value="Пока не вижу / Нет таких данных"></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="matrix-label">Сколько бизнес реально заработал?</div>
+                <div class="matrix-sublabel">Начисленная прибыль за вычетом всех себестоимостей и расходов. (ОПиУ / P&L)</div>
+              </td>
+              <td class="matrix-radio"><input type="radio" name="m_opiu" value="Вижу в готовом отчете" required></td>
+              <td class="matrix-radio"><input type="radio" name="m_opiu" value="Могу собрать вручную"></td>
+              <td class="matrix-radio"><input type="radio" name="m_opiu" value="Пока не вижу / Нет таких данных"></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="matrix-label">Хватит ли денег через 2–4 недели?</div>
+                <div class="matrix-sublabel">График будущих оплат и расходов, прогноз кассовых разрывов. (Платежный календарь)</div>
+              </td>
+              <td class="matrix-radio"><input type="radio" name="m_pk" value="Вижу в готовом отчете" required></td>
+              <td class="matrix-radio"><input type="radio" name="m_pk" value="Могу собрать вручную"></td>
+              <td class="matrix-radio"><input type="radio" name="m_pk" value="Пока не вижу / Нет таких данных"></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="matrix-label">Кому должен бизнес и кто должен бизнесу?</div>
+                <div class="matrix-sublabel">Остатки на счетах, долги клиентов, долги поставщикам, складские запасы. (Управленческий баланс)</div>
+              </td>
+              <td class="matrix-radio"><input type="radio" name="m_balans" value="Вижу в готовом отчете" required></td>
+              <td class="matrix-radio"><input type="radio" name="m_balans" value="Могу собрать вручную"></td>
+              <td class="matrix-radio"><input type="radio" name="m_balans" value="Пока не вижу / Нет таких данных"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4. Ситуация -->
+      <div class="section">
+        <div class="section-title">4. Какую недавнюю ситуацию вы хотели бы разобрать на встрече?</div>
+        <div class="section-desc">Необязательно. Если есть конкретный кейс — напишите одной фразой. Например: «Выполнили крупный контракт, оборот вырос вдвое, а на налоги пришлось занимать»</div>
+        <textarea name="situation" class="form-textarea" placeholder="Опишите ситуацию"></textarea>
+      </div>
+
+      <!-- 5. Источники -->
+      <div class="section">
+        <div class="section-title">5. На какие источники вы опираетесь при принятии финансовых решений?</div>
+        <div class="section-desc">Выберите все подходящие варианты</div>
+        <label class="option"><input type="checkbox" name="sources" value="Отчеты в 1С"><span class="option-text">Отчеты в 1С</span></label>
+        <label class="option"><input type="checkbox" name="sources" value="Таблицы в Excel / Google Sheets"><span class="option-text">Таблицы в Excel / Google Sheets</span></label>
+        <label class="option"><input type="checkbox" name="sources" value="Данные из CRM, эквайринга или личных кабинетов маркетплейсов"><span class="option-text">Данные из CRM, эквайринга или личных кабинетов маркетплейсов</span></label>
+        <label class="option"><input type="checkbox" name="sources" value="Текущий остаток на расчетном счете и выписка из клиент-банка"><span class="option-text">Текущий остаток на расчетном счете и выписка из клиент-банка</span></label>
+        <label class="option"><input type="checkbox" name="sources" value="Запрашиваю разовые расчеты у бухгалтера"><span class="option-text">Запрашиваю разовые расчеты у бухгалтера</span></label>
+        <label class="option"><input type="checkbox" name="sources" value="Ориентируюсь на предпринимательский опыт и интуицию"><span class="option-text">Ориентируюсь на предпринимательский опыт и интуицию</span></label>
+        <input type="text" name="sources_other" class="form-input" placeholder="Другое" style="margin-top: 8px;">
+      </div>
+
+      <!-- 6. Контакты -->
+      <div class="section">
+        <div class="section-title">6. Контакты для подтверждения встречи и отправки материалов</div>
+        <div class="section-desc">На указанную почту мы пришлем ссылку на видеовстречу и подписанное соглашение о неразглашении (NDA).</div>
+        
+        <div class="form-group">
+          <input type="text" name="name" class="form-input" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="phone" class="form-input" placeholder="Телефон для связи (WhatsApp / Telegram)" required>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" class="form-input" placeholder="Рабочий Email" required>
+        </div>
+
+        <label class="checkbox-group">
+          <input type="checkbox" name="pd_consent" required>
+          <span>Я согласен на обработку персональных данных в соответствии с <a href="#" target="_blank">политикой конфиденциальности</a></span>
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" name="adv_consent" required>
+          <span>Я согласен на получение рекламных материалов и информационных рассылок</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Отправить ответы и выбрать время встречи →</button>
+    </form>
+
+    <div class="footer-contacts">
+      obuh.pro · 20 лет · 257 клиентов · +7 (495) 150-33-99
+    </div>
+  </div>
+
+  <!-- Экран «Спасибо» -->
+  <div class="card success-page" id="successContainer">
+    <div class="success-icon">✓</div>
+    <h2>Ответы приняты, спасибо!</h2>
+    <p>Финансовый директор уже изучает вводные данные по вашей компании.</p>
+    
+    <h3 style="font-family: 'Roboto Slab', Georgia, serif; font-size: 20px; margin-top: 32px; margin-bottom: 16px;">Следующий шаг: зафиксируйте удобный слот в календаре</h3>
+    <p>Встреча продлится 25 минут в Zoom/Контур.Толк.<br>Без презентаций и навязывания услуг — только предметный разбор вашего финансового вопроса.</p>
+    
+    <div class="calendar-placeholder">
+      [ ЗДЕСЬ БУДЕТ ВСТРОЕН ВИДЖЕТ КАЛЕНДАРЯ ]<br>
+      (Яндекс.Календарь / Calendly / Platrum / Tilda)
+    </div>
+
+    <p style="font-size: 14px; color: #777;">После бронирования слота на указанный email придёт ссылка на встречу и одностороннее NDA.</p>
+  </div>
+
+</div>
+
+<script>
+    // Ограничение на выбор "до 3" для чекбоксов
+    function limitCheckboxes(name, max) {
+        const checkboxes = document.querySelectorAll(`input[name="${name}"]`);
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                const checked = document.querySelectorAll(`input[name="${name}"]:checked`);
+                if (checked.length > max) {
+                    this.checked = false;
+                    alert(`Можно выбрать не более ${max} вариантов.`);
+                }
+            });
+        });
+    }
+
+    limitCheckboxes('q1', 2);
+    limitCheckboxes('expenses', 3);
+
+    function submitAnketa(event) {
+        event.preventDefault();
+        const form = event.target;
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+
+        const formData = new FormData(form);
+        
+        // Собираем данные в объект
+        const data = {
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            q1: formData.getAll('q1'),
+            q1_other: formData.get('q1_other'),
+            industry: formData.getAll('industry'),
+            industry_other: formData.get('industry_other'),
+            main_products: formData.get('main_products'),
+            expenses: formData.getAll('expenses'),
+            expenses_other: formData.get('expenses_other'),
+            payment_scheme: formData.getAll('payment_scheme'),
+            employees: formData.get('employees'),
+            tax_system: formData.get('tax_system'),
+            m_dds: formData.get('m_dds'),
+            m_opiu: formData.get('m_opiu'),
+            m_pk: formData.get('m_pk'),
+            m_balans: formData.get('m_balans'),
+            situation: formData.get('situation'),
+            sources: formData.getAll('sources'),
+            sources_other: formData.get('sources_other'),
+            pd_consent: formData.get('pd_consent') ? 'Да' : 'Нет',
+            adv_consent: formData.get('adv_consent') ? 'Да' : 'Нет'
+        };
+
+        // !!! ЗАМЕНИТЕ НА ВАШ ВЕБХУК БИТРИКС24 !!!
+        const webhookUrl = 'ВАШ_ВЕБХУК_БИТРИКС24';
+
+        // Формируем комментарий для CRM
+        const comments = `
+Анкета перед встречей:
+1. Главный вопрос: ${data.q1.join('; ')} ${data.q1_other ? '| Другое: ' + data.q1_other : ''}
+2. Отрасль: ${data.industry.join('; ')} ${data.industry_other ? '| Другое: ' + data.industry_other : ''}
+2.2. Основные продукты: ${data.main_products}
+2.3. Расходы: ${data.expenses.join('; ')} ${data.expenses_other ? '| Другое: ' + data.expenses_other : ''}
+2.4. Оплата: ${data.payment_scheme.join('; ')}
+2.5. Сотрудники: ${data.employees}
+2.6. Налоги: ${data.tax_system}
+3. Данные:
+- ДДС: ${data.m_dds}
+- ОПиУ: ${data.m_opiu}
+- Платёжный календарь: ${data.m_pk}
+- Баланс: ${data.m_balans}
+4. Ситуация: ${data.situation || 'не указана'}
+5. Источники: ${data.sources.join('; ')} ${data.sources_other ? '| Другое: ' + data.sources_other : ''}
+Согласие ПД: ${data.pd_consent}. Согласие реклама: ${data.adv_consent}
+        `.trim();
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                fields: {
+                    TITLE: `Анкета перед встречей: ${data.name}`,
+                    NAME: data.name,
+                    PHONE: [{ VALUE: data.phone, VALUE_TYPE: 'MOBILE' }],
+                    EMAIL: [{ VALUE: data.email, VALUE_TYPE: 'WORK' }],
+                    COMMENTS: comments
+                }
+            })
+        }).then(() => {
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('successContainer').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }).catch(() => {
+            alert('Ошибка сети. Попробуйте еще раз.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить ответы и выбрать время встречи →';
+        });
+    }
+</script>
+</body>
+</html>
